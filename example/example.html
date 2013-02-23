@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Output</title>
+<link rel="stylesheet" type="text/css" href="scheme.css">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<table cellspacing="0">
+<tr><td class="bar">000001</td><td class="code"><span class="preprocessor">#include &lt;iostream&gt;</span>
+<tr><td class="bar">000002</td><td class="code"><span class="preprocessor">#include &lt;sstream&gt;</span>
+<tr><td class="bar">000003</td><td class="code"><span class="preprocessor">#include &lt;string&gt;</span>
+<tr><td class="bar">000004</td><td class="code"><span class="preprocessor">#include &lt;cstdlib&gt;</span>
+<tr><td class="bar">000005</td><td class="code"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</td></tr>
+<tr><td class="bar">000006</td><td class="code"></td></tr>
+<tr><td class="bar">000007</td><td class="code">string sanitizeInput(string &amp;s);</td></tr>
+<tr><td class="bar">000008</td><td class="code"></td></tr>
+<tr><td class="bar">000009</td><td class="code"><span class="comment">//These three functions call each other to evaluate a simple mathematical expression. Pos is shared between them.</span>
+<tr><td class="bar">000010</td><td class="code"><span class="keyword">double</span> evalExpression(string s, <span class="keyword">int</span> *pos);</td></tr>
+<tr><td class="bar">000011</td><td class="code"><span class="keyword">double</span> evalFactor(string s, <span class="keyword">int</span> *pos);</td></tr>
+<tr><td class="bar">000012</td><td class="code"><span class="keyword">double</span> evalTerm(string s, <span class="keyword">int</span> *pos);</td></tr>
+<tr><td class="bar">000013</td><td class="code"></td></tr>
+<tr><td class="bar">000014</td><td class="code"><span class="keyword">int</span> main()</td></tr>
+<tr><td class="bar">000015</td><td class="code">{</td></tr>
+<tr><td class="bar">000016</td><td class="code">	string s;</td></tr>
+<tr><td class="bar">000017</td><td class="code">	<span class="keyword">char</span> ans;</td></tr>
+<tr><td class="bar">000018</td><td class="code">	<span class="keyword">int</span> pos;</td></tr>
+<tr><td class="bar">000019</td><td class="code">	<span class="keyword">do</span> {</td></tr>
+<tr><td class="bar">000020</td><td class="code">		pos = <span class="number">0</span>;</td></tr>
+<tr><td class="bar">000021</td><td class="code">		cout &lt;&lt; <span class="string">"Enter Expression: "</span>;</td></tr>
+<tr><td class="bar">000022</td><td class="code">		getline(cin, s);</td></tr>
+<tr><td class="bar">000023</td><td class="code">		cout &lt;&lt; <span class="string">"Result: "</span> &lt;&lt; evalExpression(sanitizeInput(s), &amp;pos) &lt;&lt; endl;</td></tr>
+<tr><td class="bar">000024</td><td class="code">		cout &lt;&lt; <span class="string">"Again? (y/n) "</span>;</td></tr>
+<tr><td class="bar">000025</td><td class="code">		cin &gt;&gt; ans; cin.ignore();</td></tr>
+<tr><td class="bar">000026</td><td class="code">	} <span class="keyword">while</span> (ans == <span class="string">'Y'</span> || ans == <span class="string">'y'</span>);</td></tr>
+<tr><td class="bar">000027</td><td class="code">	<span class="keyword">return</span> <span class="number">0</span>;</td></tr>
+<tr><td class="bar">000028</td><td class="code">}</td></tr>
+<tr><td class="bar">000029</td><td class="code"></td></tr>
+<tr><td class="bar">000030</td><td class="code"><span class="comment">//Input: Reference to User input.</span>
+<tr><td class="bar">000031</td><td class="code"><span class="comment">//Return Value: User input stripped of all non-math characters</span>
+<tr><td class="bar">000032</td><td class="code">string sanitizeInput(string &amp;s)</td></tr>
+<tr><td class="bar">000033</td><td class="code">{</td></tr>
+<tr><td class="bar">000034</td><td class="code">	string ret;</td></tr>
+<tr><td class="bar">000035</td><td class="code">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) {</td></tr>
+<tr><td class="bar">000036</td><td class="code">		<span class="keyword">switch</span>(s[i]) {</td></tr>
+<tr><td class="bar">000037</td><td class="code">			<span class="keyword">case</span> <span class="string">'+'</span>:</td></tr>
+<tr><td class="bar">000038</td><td class="code">			<span class="keyword">case</span> <span class="string">'-'</span>:</td></tr>
+<tr><td class="bar">000039</td><td class="code">			<span class="keyword">case</span> <span class="string">'*'</span>:</td></tr>
+<tr><td class="bar">000040</td><td class="code">			<span class="keyword">case</span> <span class="string">'/'</span>:</td></tr>
+<tr><td class="bar">000041</td><td class="code">			<span class="keyword">case</span> <span class="string">'0'</span>:</td></tr>
+<tr><td class="bar">000042</td><td class="code">			<span class="keyword">case</span> <span class="string">'1'</span>:</td></tr>
+<tr><td class="bar">000043</td><td class="code">			<span class="keyword">case</span> <span class="string">'2'</span>:</td></tr>
+<tr><td class="bar">000044</td><td class="code">			<span class="keyword">case</span> <span class="string">'3'</span>:</td></tr>
+<tr><td class="bar">000045</td><td class="code">			<span class="keyword">case</span> <span class="string">'4'</span>:</td></tr>
+<tr><td class="bar">000046</td><td class="code">			<span class="keyword">case</span> <span class="string">'5'</span>:</td></tr>
+<tr><td class="bar">000047</td><td class="code">			<span class="keyword">case</span> <span class="string">'6'</span>:</td></tr>
+<tr><td class="bar">000048</td><td class="code">			<span class="keyword">case</span> <span class="string">'7'</span>:</td></tr>
+<tr><td class="bar">000049</td><td class="code">			<span class="keyword">case</span> <span class="string">'8'</span>:</td></tr>
+<tr><td class="bar">000050</td><td class="code">			<span class="keyword">case</span> <span class="string">'9'</span>:</td></tr>
+<tr><td class="bar">000051</td><td class="code">			<span class="keyword">case</span> <span class="string">'('</span>:</td></tr>
+<tr><td class="bar">000052</td><td class="code">			<span class="keyword">case</span> <span class="string">')'</span>:</td></tr>
+<tr><td class="bar">000053</td><td class="code">				ret += s[i];</td></tr>
+<tr><td class="bar">000054</td><td class="code">				<span class="keyword">break</span>;</td></tr>
+<tr><td class="bar">000055</td><td class="code">			<span class="keyword">default</span>:</td></tr>
+<tr><td class="bar">000056</td><td class="code">				<span class="keyword">break</span>;</td></tr>
+<tr><td class="bar">000057</td><td class="code">		}</td></tr>
+<tr><td class="bar">000058</td><td class="code">	}</td></tr>
+<tr><td class="bar">000059</td><td class="code">	<span class="keyword">return</span> ret;</td></tr>
+<tr><td class="bar">000060</td><td class="code">}</td></tr>
+<tr><td class="bar">000061</td><td class="code"></td></tr>
+<tr><td class="bar">000062</td><td class="code"><span class="comment">//Converts strings to other data types. In the context of this program, numbers.</span>
+<tr><td class="bar">000063</td><td class="code"><span class="comment">//Inputs: Reference to desired type, reference to data in string format.</span>
+<tr><td class="bar">000064</td><td class="code"><span class="comment">//Writes into: T&amp; t</span>
+<tr><td class="bar">000065</td><td class="code"><span class="comment">//Return Value: Success as a boolean</span>
+<tr><td class="bar">000066</td><td class="code"><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</td></tr>
+<tr><td class="bar">000067</td><td class="code"><span class="keyword">bool</span> from_string(T&amp; t, string&amp; s)</td></tr>
+<tr><td class="bar">000068</td><td class="code">{</td></tr>
+<tr><td class="bar">000069</td><td class="code">	istringstream iss(s);</td></tr>
+<tr><td class="bar">000070</td><td class="code">	<span class="keyword">return</span> !(iss &gt;&gt; t).fail();</td></tr>
+<tr><td class="bar">000071</td><td class="code">}</td></tr>
+<tr><td class="bar">000072</td><td class="code"></td></tr>
+<tr><td class="bar">000073</td><td class="code"><span class="comment">//Evaluates an expression. Directly handles addition and subtraction.</span>
+<tr><td class="bar">000074</td><td class="code"><span class="comment">//Inputs: Expression in string, pointer to position in string to start from</span>
+<tr><td class="bar">000075</td><td class="code"><span class="comment">//Writes into: pos</span>
+<tr><td class="bar">000076</td><td class="code"><span class="comment">//Return Value: Evaluated Expression</span>
+<tr><td class="bar">000077</td><td class="code"><span class="keyword">double</span> evalExpression(string s, <span class="keyword">int</span> *pos)</td></tr>
+<tr><td class="bar">000078</td><td class="code">{</td></tr>
+<tr><td class="bar">000079</td><td class="code">	<span class="keyword">double</span> result = evalTerm(s, pos);</td></tr>
+<tr><td class="bar">000080</td><td class="code">	<span class="keyword">while</span>(*pos &lt; s.length()) {</td></tr>
+<tr><td class="bar">000081</td><td class="code">		<span class="keyword">char</span> op = s[*pos];</td></tr>
+<tr><td class="bar">000082</td><td class="code">		<span class="keyword">if</span>(op != <span class="string">'+'</span> &amp;&amp; op != <span class="string">'-'</span>)</td></tr>
+<tr><td class="bar">000083</td><td class="code">			<span class="keyword">return</span> result;</td></tr>
+<tr><td class="bar">000084</td><td class="code">		++(*pos);</td></tr>
+<tr><td class="bar">000085</td><td class="code"></td></tr>
+<tr><td class="bar">000086</td><td class="code">		<span class="keyword">double</span> term = evalTerm(s, pos);</td></tr>
+<tr><td class="bar">000087</td><td class="code">		<span class="keyword">if</span>(op == <span class="string">'+'</span>) {</td></tr>
+<tr><td class="bar">000088</td><td class="code">			result += term;</td></tr>
+<tr><td class="bar">000089</td><td class="code">		}</td></tr>
+<tr><td class="bar">000090</td><td class="code">		<span class="keyword">else</span> <span class="keyword">if</span>(op == <span class="string">'-'</span>) {</td></tr>
+<tr><td class="bar">000091</td><td class="code">			result -= term;</td></tr>
+<tr><td class="bar">000092</td><td class="code">		}</td></tr>
+<tr><td class="bar">000093</td><td class="code">	}</td></tr>
+<tr><td class="bar">000094</td><td class="code">	<span class="keyword">return</span> result;</td></tr>
+<tr><td class="bar">000095</td><td class="code">}</td></tr>
+<tr><td class="bar">000096</td><td class="code"></td></tr>
+<tr><td class="bar">000097</td><td class="code"><span class="comment">//Evaluates a term. Directly handles multiplication and division.</span>
+<tr><td class="bar">000098</td><td class="code"><span class="comment">//Inputs: Expression in string, pointer to position in string to start from</span>
+<tr><td class="bar">000099</td><td class="code"><span class="comment">//Writes into: pos</span>
+<tr><td class="bar">000100</td><td class="code"><span class="comment">//Return Value: Evaluated Piece of Expression</span>
+<tr><td class="bar">000101</td><td class="code"><span class="keyword">double</span> evalTerm(string s, <span class="keyword">int</span> *pos)</td></tr>
+<tr><td class="bar">000102</td><td class="code">{</td></tr>
+<tr><td class="bar">000103</td><td class="code">	<span class="keyword">double</span> result = evalFactor(s, pos);</td></tr>
+<tr><td class="bar">000104</td><td class="code">	<span class="keyword">while</span>(*pos &lt; s.length()) {</td></tr>
+<tr><td class="bar">000105</td><td class="code">		<span class="keyword">char</span> op = s[*pos];</td></tr>
+<tr><td class="bar">000106</td><td class="code">		<span class="keyword">if</span>(op != <span class="string">'*'</span> &amp;&amp; op != <span class="string">'/'</span> &amp;&amp; op != <span class="string">'('</span>)</td></tr>
+<tr><td class="bar">000107</td><td class="code">			<span class="keyword">return</span> result;</td></tr>
+<tr><td class="bar">000108</td><td class="code"></td></tr>
+<tr><td class="bar">000109</td><td class="code">		<span class="keyword">if</span>(op != <span class="string">'('</span>) ++(*pos);</td></tr>
+<tr><td class="bar">000110</td><td class="code"></td></tr>
+<tr><td class="bar">000111</td><td class="code">		<span class="keyword">double</span> factor = evalFactor(s, pos);</td></tr>
+<tr><td class="bar">000112</td><td class="code">		<span class="keyword">if</span>(op == <span class="string">'*'</span> || op == <span class="string">'('</span>)</td></tr>
+<tr><td class="bar">000113</td><td class="code">			result *= factor;</td></tr>
+<tr><td class="bar">000114</td><td class="code">		<span class="keyword">else</span> <span class="keyword">if</span>(op == <span class="string">'/'</span> &amp;&amp; factor != <span class="number">0</span>)</td></tr>
+<tr><td class="bar">000115</td><td class="code">			result /= factor;</td></tr>
+<tr><td class="bar">000116</td><td class="code">		<span class="keyword">else</span> <span class="keyword">if</span>(factor == <span class="number">0</span>) {</td></tr>
+<tr><td class="bar">000117</td><td class="code">			cout &lt;&lt; <span class="string">"Divide by zero!!"</span> &lt;&lt; endl;</td></tr>
+<tr><td class="bar">000118</td><td class="code">			exit(<span class="number">1</span>);</td></tr>
+<tr><td class="bar">000119</td><td class="code">		}</td></tr>
+<tr><td class="bar">000120</td><td class="code">	}</td></tr>
+<tr><td class="bar">000121</td><td class="code">	<span class="keyword">return</span> result;</td></tr>
+<tr><td class="bar">000122</td><td class="code">}</td></tr>
+<tr><td class="bar">000123</td><td class="code"></td></tr>
+<tr><td class="bar">000124</td><td class="code"><span class="comment">//Evaluates a factor. Directly handles parenthesis, and casting individual numbers.</span>
+<tr><td class="bar">000125</td><td class="code"><span class="comment">//Inputs: Expression in string, pointer to position in string to start from</span>
+<tr><td class="bar">000126</td><td class="code"><span class="comment">//Writes into: pos</span>
+<tr><td class="bar">000127</td><td class="code"><span class="comment">//Return Value: Evaluated Piece of Expression</span>
+<tr><td class="bar">000128</td><td class="code"><span class="keyword">double</span> evalFactor(string s, <span class="keyword">int</span> *pos)</td></tr>
+<tr><td class="bar">000129</td><td class="code">{</td></tr>
+<tr><td class="bar">000130</td><td class="code">	<span class="keyword">double</span> result;</td></tr>
+<tr><td class="bar">000131</td><td class="code">	<span class="keyword">bool</span> negative = <span class="keyword">false</span>;</td></tr>
+<tr><td class="bar">000132</td><td class="code">	</td></tr>
+<tr><td class="bar">000133</td><td class="code">	<span class="keyword">if</span>(s[*pos] == <span class="string">'-'</span>) {</td></tr>
+<tr><td class="bar">000134</td><td class="code">		negative = <span class="keyword">true</span>;</td></tr>
+<tr><td class="bar">000135</td><td class="code">		++(*pos);</td></tr>
+<tr><td class="bar">000136</td><td class="code">	}</td></tr>
+<tr><td class="bar">000137</td><td class="code">	<span class="keyword">if</span>(s[*pos] == <span class="string">'('</span>) {</td></tr>
+<tr><td class="bar">000138</td><td class="code">		++(*pos);</td></tr>
+<tr><td class="bar">000139</td><td class="code">		result = evalExpression(s, pos);</td></tr>
+<tr><td class="bar">000140</td><td class="code">		<span class="keyword">if</span>(s[*pos] != <span class="string">')'</span>) {</td></tr>
+<tr><td class="bar">000141</td><td class="code">			cout &lt;&lt; <span class="string">"Unmatched parenthesis!"</span> &lt;&lt; endl;</td></tr>
+<tr><td class="bar">000142</td><td class="code">			exit(<span class="number">1</span>);</td></tr>
+<tr><td class="bar">000143</td><td class="code">		}</td></tr>
+<tr><td class="bar">000144</td><td class="code">		++(*pos);</td></tr>
+<tr><td class="bar">000145</td><td class="code">	} <span class="keyword">else</span> {</td></tr>
+<tr><td class="bar">000146</td><td class="code">		string tmp;</td></tr>
+<tr><td class="bar">000147</td><td class="code">		<span class="keyword">while</span>((s[*pos] &lt;= <span class="string">'0'</span> &amp;&amp; s[*pos] &lt;= <span class="string">'9'</span>) || s[*pos] == <span class="string">'.'</span>)</td></tr>
+<tr><td class="bar">000148</td><td class="code">		{</td></tr>
+<tr><td class="bar">000149</td><td class="code">			tmp += s[*pos];</td></tr>
+<tr><td class="bar">000150</td><td class="code">			++(*pos);</td></tr>
+<tr><td class="bar">000151</td><td class="code">		}</td></tr>
+<tr><td class="bar">000152</td><td class="code">		from_string&lt;<span class="keyword">double</span>&gt;(result, tmp); </td></tr>
+<tr><td class="bar">000153</td><td class="code">	}</td></tr>
+<tr><td class="bar">000154</td><td class="code">	<span class="keyword">if</span>(negative) {</td></tr>
+<tr><td class="bar">000155</td><td class="code">		result *= -<span class="number">1</span>.<span class="number">0</span>;</td></tr>
+<tr><td class="bar">000156</td><td class="code">	}</td></tr>
+<tr><td class="bar">000157</td><td class="code">	</td></tr>
+<tr><td class="bar">000158</td><td class="code">	<span class="keyword">return</span> result;</td></tr>
+<tr><td class="bar">000159</td><td class="code">}</td></tr>
+<tr><td class="bar">000160</td><td class="code"></td></tr>
+</table>
+<p> <a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01 Strict" height="31" width="88"></a></p>
+</body>
+</html>

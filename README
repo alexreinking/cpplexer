@@ -1,0 +1,8 @@
+CPP-Lexer
+---------
+
+This is a simple tokenizer class for C/C++. It doesn't handle line splices in start-comments, but since this is a (rare) misfeature, it shouldn't cause any problems in practice.
+
+The class is packaged with a decent syntax highlighter that outputs well-formed HTML 4.
+
+This was written during my Junior year of high school.
